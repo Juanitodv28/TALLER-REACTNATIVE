@@ -1,16 +1,21 @@
+
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import VentanaAlerta from '../components/AlertaTemp';
 
 export default function RootLayout() {
   return (
     <>
       <StatusBar style="dark" />
+
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: '#2563eb',
           headerTitleAlign: 'center',
-          tabBarLabelStyle: { fontWeight: '600' },
+          tabBarLabelStyle: {
+            fontWeight: '600',
+          },
         }}
       >
         <Tabs.Screen
@@ -27,6 +32,7 @@ export default function RootLayout() {
             ),
           }}
         />
+
         <Tabs.Screen
           name="estudios"
           options={{
@@ -41,6 +47,7 @@ export default function RootLayout() {
             ),
           }}
         />
+
         <Tabs.Screen
           name="experiencia"
           options={{
@@ -55,6 +62,7 @@ export default function RootLayout() {
             ),
           }}
         />
+
         <Tabs.Screen
           name="hobbies"
           options={{
@@ -69,7 +77,24 @@ export default function RootLayout() {
             ),
           }}
         />
+
+        <Tabs.Screen
+          name="pedidos"
+          options={{
+            title: 'Pedidos',
+            headerTitle: 'Menú de Pedidos',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons
+                name="cart-outline"
+                size={size}
+                color={typeof color === 'string' ? color : '#2563eb'}
+              />
+            ),
+          }}
+        />
       </Tabs>
+
+      <VentanaAlerta />
     </>
   );
 }

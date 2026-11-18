@@ -1,6 +1,12 @@
-import { Ionicons } from '@expo/vector-icons';
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import { Ionicons } from '@expo/vector-icons';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { mostrarAlerta } from '../utils/alerta';
 type TarjetaHobbyProps = {
   nombre: string;
   descripcion: string;
@@ -17,18 +23,23 @@ export default function TarjetaHobby({
   return (
     <TouchableOpacity
       accessibilityRole="button"
-      activeOpacity={0.8}
-      onPress={() => Alert.alert(nombre, detalleAlerta)}
+      onPress={() => mostrarAlerta(nombre, detalleAlerta)}
       style={styles.card}
     >
       <View style={styles.iconCircle}>
         <Ionicons name={icono} size={27} color="#2563eb" />
       </View>
+
       <View style={styles.copy}>
         <Text style={styles.name}>{nombre}</Text>
         <Text style={styles.description}>{descripcion}</Text>
       </View>
-      <Ionicons name="chevron-forward" size={20} color="#94a3b8" />
+
+      <Ionicons
+        name="chevron-forward"
+        size={20}
+        color="#94a3b8"
+      />
     </TouchableOpacity>
   );
 }

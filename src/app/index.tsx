@@ -1,7 +1,37 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
+import * as Linking from 'expo-linking';
+import {
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MiBoton from '../components/MiBoton';
+import { mostrarAlerta } from '../utils/alerta';
+
+const correo = 'jpablosanch28@gmail.com';
+const telefono = '+57 320 363 4494';
+const repositorio =
+  'https://github.com/Juanitodv28/TALLER-REACTNATIVE';
+const perfilGitHub = 'https://github.com/Juanitodv28';
+
+async function abrirEnlace(url: string) {
+  try {
+    if (Platform.OS === 'web' && /^https?:\/\//i.test(url)) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    await Linking.openURL(url);
+  } catch {
+    mostrarAlerta(
+      'No se pudo abrir el enlace',
+      'No se pudo completar la acción. Verifica que tengas una aplicación disponible e inténtalo nuevamente.',
+    );
+  }
+}
 
 export default function HomeScreen() {
   return (
@@ -32,7 +62,20 @@ export default function HomeScreen() {
             nombreIcono="mail"
             colorBoton="#eab308"
             onPress={() =>
-              Alert.alert('Correo de Contacto', 'jpablosanch28@gmail.com')
+              mostrarAlerta(
+                'Correo de contacto',
+                `Puedes escribirle a Juan Pablo a:\n${correo}`,
+                [
+                  {
+                    texto: 'Enviar correo',
+                    estilo: 'principal',
+                    onPress: () => {
+                      void abrirEnlace(`mailto:${correo}`);
+                    },
+                  },
+                  { texto: 'Cerrar', estilo: 'cancelar' },
+                ],
+              )
             }
           />
           <MiBoton
@@ -40,7 +83,20 @@ export default function HomeScreen() {
             nombreIcono="call"
             colorBoton="#3b82f6"
             onPress={() =>
-              Alert.alert('Teléfono de Contacto', 'Móvil: +57 320 363 4494')
+              mostrarAlerta(
+                'Teléfono de contacto',
+                `Número móvil de Juan Pablo:\n${telefono}`,
+                [
+                  {
+                    texto: 'Llamar ahora',
+                    estilo: 'principal',
+                    onPress: () => {
+                      void abrirEnlace(`tel:${telefono.replace(/\s/g, '')}`);
+                    },
+                  },
+                  { texto: 'Cerrar', estilo: 'cancelar' },
+                ],
+              )
             }
           />
           <MiBoton
@@ -48,9 +104,19 @@ export default function HomeScreen() {
             nombreIcono="logo-github"
             colorBoton="#24292e"
             onPress={() =>
-              Alert.alert(
-                'Repositorio Oficial',
-                'https://github.com/Juanitodv28/TALLER-REACTNATIVE.git',
+              mostrarAlerta(
+                'Repositorio del proyecto',
+                'Consulta el código fuente de esta hoja de vida en GitHub.',
+                [
+                  {
+                    texto: 'Abrir repositorio',
+                    estilo: 'principal',
+                    onPress: () => {
+                      void abrirEnlace(repositorio);
+                    },
+                  },
+                  { texto: 'Cerrar', estilo: 'cancelar' },
+                ],
               )
             }
           />
@@ -59,9 +125,9 @@ export default function HomeScreen() {
             nombreIcono="briefcase"
             colorBoton="#0a66c2"
             onPress={() =>
-              Alert.alert(
-                'Perfil Laboral',
-                'Juan Pablo Sánchez Baquero - Técnico en ADSO / Soporte TI',
+              mostrarAlerta(
+                'Perfil profesional',
+                'Juan Pablo Sánchez Baquero\nTécnico en Análisis y Desarrollo de Software (ADSO), con experiencia en soporte técnico de hardware, mantenimiento de equipos y desarrollo de aplicaciones móviles con React Native.',
               )
             }
           />
@@ -70,9 +136,19 @@ export default function HomeScreen() {
             nombreIcono="code-slash"
             colorBoton="#10b981"
             onPress={() =>
-              Alert.alert(
-                'Proyectos',
-                'Visita mi GitHub: github.com/Juanitodv28',
+              mostrarAlerta(
+                'Portafolio de proyectos',
+                `Explora los proyectos y el trabajo de Juan Pablo en GitHub:\n${perfilGitHub}`,
+                [
+                  {
+                    texto: 'Ver portafolio',
+                    estilo: 'principal',
+                    onPress: () => {
+                      void abrirEnlace(perfilGitHub);
+                    },
+                  },
+                  { texto: 'Cerrar', estilo: 'cancelar' },
+                ],
               )
             }
           />
@@ -81,9 +157,9 @@ export default function HomeScreen() {
             nombreIcono="school"
             colorBoton="#6366f1"
             onPress={() =>
-              Alert.alert(
-                'Centro de Formación',
-                'SENA - CGMLTI Regional Distrito Capital',
+              mostrarAlerta(
+                'Formación SENA',
+                'Centro de Gestión de Mercados, Logística y Tecnologías de la Información (CGMLTI), Regional Distrito Capital.\n\nPrograma: Tecnología en Análisis y Desarrollo de Software (ADSO).\nFicha: 3407187.\nEstado: En curso.',
               )
             }
           />
